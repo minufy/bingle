@@ -1,5 +1,5 @@
-# reban
-love2d 템플릿
+# bingle
+juniper jam
 
 # setup
 `git submodule update --init`

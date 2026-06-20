@@ -2,6 +2,12 @@ local Player = Object:extend()
 
 NewImage("player")
 
+local spin_speed = 3
+local spin_dist = TILE_SIZE*1.5
+local spin_speed_damp = 0.05
+local max_move_force = 20
+local move_damp = 0.2
+
 function Player:new(data)
     self.x = data.x
     self.y = data.y
@@ -9,11 +15,10 @@ function Player:new(data)
     self.h = Image.player:getHeight()
 
     self.mx = 0
-    self.cbs = {
-        x = function (other)
-            self:cb_x(other)
-        end
-    }
+    self.my = 0
+    self.spin = 0
+    self.spin_speed = 0
+    self.move_force = 0
 
     if not Edit.editing then
         Camera:offset(Res.w/2, Res.h/2)
@@ -22,26 +27,41 @@ function Player:new(data)
     end
 end
 
-function Player:cb_x(other)
-    Physics.solve_x(self, self.mx, other)
-end
-
 function Player:update(dt)
     Camera:set(self.x+self.w/2, self.y+self.h/2)
-    local ix = 0
-    if Input.right.down then
-        ix = ix+1
+    self.spin = self.spin+self.spin_speed*dt
+    
+    if Input.jump.released then
+        local x = math.cos(math.rad(self.spin))
+        local y = math.sin(math.rad(self.spin))
+        self.mx = x*self.move_force
+        self.my = y*self.move_force
+        Camera:shake(self.move_force*0.4)
+        for i = 1, 4 do
+            Game:add(Particle, self.x+self.w/2, self.y+self.h/2, -x*10+math.random(-12, 12), -y*10+math.random(-12, 12), math.random(4, 8))
+        end
     end
-    if Input.left.down then
-        ix = ix-1
+
+    if Input.jump.down then
+        self.spin_speed = self.spin_speed-self.spin_speed*spin_speed_damp*dt
+        self.move_force = self.move_force+(max_move_force-self.move_force)*spin_speed_damp*dt
+    else
+        self.spin_speed = spin_speed
+        self.move_force = 2
     end
-    self.mx = ix*2
+
+    self.mx = self.mx-self.mx*move_damp*dt
+    self.my = self.my-self.my*move_damp*dt
+
     self.x = self.x+self.mx*dt
-    Physics.col_tiles(self, self.cbs.x)
+    self.y = self.y+self.my*dt
 end
 
 function Player:draw()
     love.graphics.draw(Image.player, self.x, self.y)
+    local x = math.cos(math.rad(self.spin))*spin_dist
+    local y = math.sin(math.rad(self.spin))*spin_dist
+    love.graphics.circle("fill", self.x+self.w/2+x, self.y+self.h/2+y, math.log(self.move_force)*2)
 end
 
 return Player

@@ -8,7 +8,6 @@ function Game:init()
 end
 
 function Game:before_reload()
-    self:base_reload()
     self.objects = {}
 end
 
@@ -29,7 +28,6 @@ function Game:update(dt)
                     object:update(dt)
                 end
                 if object.remove then
-                    self.lookup[object.key] = nil
                     self.objects[group_name][i] = self.objects[group_name][#self.objects[group_name]]
                     self.objects[group_name][#self.objects[group_name]] = nil
                 end
@@ -44,28 +42,28 @@ function Game:draw()
     love.graphics.rectangle("fill", 0, 0, Res.w, Res.h)
     Color.reset()
     
-    Camera:start()
-    Outline:start()
     
     for group_name, group in pairs(self.objects) do
+        Camera:start()
+        Outline:start()
         for _, object in ipairs(group) do
             if object.draw then
                 object:draw()
             end
         end
+        Camera:stop()
+        Outline:stop()
     end
     
+    Camera:start()
     if Edit.editing then
         Edit:draw()
     end
-    
     Camera:stop()
 
     if Edit.editing then
         Edit:draw_hud()
     end
-
-    Outline:stop()
 end
 
 return Game
