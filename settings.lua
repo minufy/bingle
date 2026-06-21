@@ -1,4 +1,7 @@
-Input.jump = NewInput({"space", "up", "w"})
+Input.left = NewInput({"left", "a"})
+Input.right = NewInput({"right", "d"})
+Input.up = NewInput({"up", "w"})
+Input.down = NewInput({"down", "s"})
 
 -- Audio:add("jump")
 
@@ -11,7 +14,7 @@ TILE_TYPES = {
 }
 OBJECT_TYPES = {
     "player",
-    "bullet",
+    "spinner",
     "enemy",
     "enemy_spawner",
 }
