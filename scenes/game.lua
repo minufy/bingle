@@ -2,17 +2,18 @@ Game = {}
 local GameBase = require("stuff.game_base")
 GameBase(Game)
 
-function Game:init()
-    Edit:init()
-    Level:init("1")
-end
+NewImage("bg")
 
-function Game:before_reload()
+function Game:init()
+    -- Edit:init()
+    Level:init()
     self.objects = {}
+    self:add(OBJECTS.player)
+    self:add(OBJECTS.enemy_spawner)
 end
 
 function Game:update(dt)
-    Edit:update(dt)
+    -- Edit:update(dt)
     Camera:update(dt)
 
     if not Edit.editing then
@@ -38,10 +39,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    love.graphics.setColor(rgb(49, 77, 121))
-    love.graphics.rectangle("fill", 0, 0, Res.w, Res.h)
-    Color.reset()
-    
+    love.graphics.draw(Image.bg)
     
     for group_name, group in pairs(self.objects) do
         Camera:start()
@@ -55,15 +53,15 @@ function Game:draw()
         Outline:stop()
     end
     
-    Camera:start()
-    if Edit.editing then
-        Edit:draw()
-    end
-    Camera:stop()
+    -- Camera:start()
+    -- if Edit.editing then
+    --     Edit:draw()
+    -- end
+    -- Camera:stop()
 
-    if Edit.editing then
-        Edit:draw_hud()
-    end
+    -- if Edit.editing then
+    --     Edit:draw_hud()
+    -- end
 end
 
 return Game

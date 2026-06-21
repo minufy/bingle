@@ -7,14 +7,16 @@ Camera.y_damp = 0.1
 Camera.shake_damp = 0.3
 
 TILE_TYPES = {
-    "tile",
+    -- "tile",
 }
 OBJECT_TYPES = {
     "player",
-    "zone",
+    "bullet",
+    "enemy",
+    "enemy_spawner",
 }
 IMG_TYPES = {
-    "test",
+    -- "test",
 }
 
 TILE_SIZE = 16
