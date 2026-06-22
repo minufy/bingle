@@ -7,7 +7,7 @@ Input.down = NewInput({"down", "s"})
 
 Camera.x_damp = 0.1
 Camera.y_damp = 0.1
-Camera.shake_damp = 0.3
+Camera.shake_damp = 0.2
 
 TILE_TYPES = {
     -- "tile",
