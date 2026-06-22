@@ -38,8 +38,26 @@ function Game:update(dt)
     end
 end
 
+function Game:draw_bg()
+    local size = TILE_SIZE*2
+    love.graphics.setColor(0, 0, 0, 0.05)
+    local ox = math.round(self.player.x, size)
+    local oy = math.round(self.player.y, size)
+    for x = -1, Res.w/size+1 do
+        for y = -1, Res.h/size+1 do
+            if (x+ox+y+oy)%2 == 0 then
+                love.graphics.rectangle("fill", (x+ox)*size-Res.w/2, (y+oy)*size-Res.h/2, size, size)
+            end
+        end
+    end
+    Color.reset()
+end
+
 function Game:draw()
     love.graphics.draw(Image.bg)
+    Camera:start()
+    self:draw_bg()
+    Camera:stop()
     
     for group_name, group in pairs(self.objects) do
         Camera:start()

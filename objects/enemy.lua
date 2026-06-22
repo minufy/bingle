@@ -34,7 +34,7 @@ function Enemy:die()
     for _ = 1, 4 do
         Game:add(Particle, self.x+self.w/2, self.y+self.h/2, math.random(-12, 12), math.random(-12, 12), math.random(4, 8))
     end
-    Camera:shake(1)
+    Camera:shake(2)
 end
 
 return Enemy
