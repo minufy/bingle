@@ -26,15 +26,15 @@ function Enemy:update(dt)
 end
 
 function Enemy:draw()
-    love.graphics.draw(Image.enemy, self.x, self.y)
+    love.graphics.draw(Image.enemy, self.x, self.y+SinEffect()*2)
 end
 
 function Enemy:die()
     self.remove = true
     for _ = 1, 4 do
-        Game:add(Particle, self.x+self.w/2, self.y+self.h/2, math.random(-12, 12), math.random(-12, 12), math.random(4, 8))
+        Game:add(Particle, self.x+self.w/2, self.y+self.h/2, math.random(-20, 20), math.random(-20, 20), math.random(5, 10))
     end
-    Camera:shake(2)
+    Camera:shake(4)
 end
 
 return Enemy

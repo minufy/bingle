@@ -10,11 +10,21 @@ function Game:init()
     self.objects = {}
     self:add(OBJECTS.player)
     self:add(OBJECTS.enemy_spawner)
+    self.score_text = {
+        size = 1,
+        value = 0,
+        update = function (v)
+            self.score_text.size = 2
+            self.score_text.value = self.score_text.value+v
+        end,
+    }
 end
 
 function Game:update(dt)
     -- Edit:update(dt)
     Camera:update(dt)
+
+    self.score_text.size = self.score_text.size+(1-self.score_text.size)*0.1*dt
 
     if not Edit.editing then
         self.group_names = {}
@@ -53,23 +63,38 @@ function Game:draw_bg()
     Color.reset()
 end
 
+local draw_order = {
+    "particle",
+    "spinner",
+    "player",
+    "enemy",
+}
+
 function Game:draw()
     love.graphics.draw(Image.bg)
     Camera:start()
     self:draw_bg()
     Camera:stop()
-    
-    for group_name, group in pairs(self.objects) do
+
+    for i, group_name in ipairs(draw_order) do
         Camera:start()
         Outline:start()
-        for _, object in ipairs(group) do
-            if object.draw then
-                object:draw()
+        if self.objects[group_name] ~= nil then
+            for _, object in ipairs(self.objects[group_name]) do
+                if object.draw then
+                    object:draw()
+                end
             end
         end
         Camera:stop()
         Outline:stop()
     end
+
+    Outline:start()
+    local s = tostring(math.round(self.score_text.value))
+    love.graphics.setFont(FontBold)
+    love.graphics.print(s, Res.w/2-FontBold:getWidth(s)*self.score_text.size/2+Camera.shake_x, 40-FontBold:getHeight()*self.score_text.size/2+Camera.shake_y, 0, self.score_text.size, self.score_text.size)
+    Outline:stop()
     
     -- Camera:start()
     -- if Edit.editing then

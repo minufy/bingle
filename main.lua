@@ -27,6 +27,7 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.graphics.setLineStyle("rough")
     Font = love.graphics.newFont("assets/fonts/Galmuri9.ttf", 10)
+    FontBold = love.graphics.newFont("assets/fonts/Galmuri11-Bold.ttf", 12)
 
     Outline:init(1)
     Res:init()

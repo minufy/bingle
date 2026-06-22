@@ -10,7 +10,7 @@ local function pos(i)
         return {math.random(-10, 10)*0.1, -1}
     end
     if i == 3 then
-        return {-1, math.random(-10, 10)*0.1}
+        return {1, math.random(-10, 10)*0.1}
     end
     if i == 4 then
         return {-1, math.random(-10, 10)*0.1}
