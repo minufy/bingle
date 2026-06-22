@@ -40,7 +40,7 @@ end
 
 function Game:draw_bg()
     local size = TILE_SIZE*2
-    love.graphics.setColor(0, 0, 0, 0.05)
+    love.graphics.setColor(0, 0, 0, 0.03)
     local ox = math.round(self.player.x, size)
     local oy = math.round(self.player.y, size)
     for x = -1, Res.w/size+1 do

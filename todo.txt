@@ -1,2 +1,1 @@
-ctrl c v y d x
-tile layers
+플레이어를 마우스로 움직이게 해볼수도?

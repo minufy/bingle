@@ -3,7 +3,7 @@ local Player = Object:extend()
 NewImage("player")
 
 local move_damp = 0.2
-local speed = 1.5
+local speed = 1.3
 
 function Player:new()
     Game.player = self

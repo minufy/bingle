@@ -2,8 +2,8 @@ local Spinner = Object:extend()
 
 local size = 6
 local dist = TILE_SIZE*1.5
-local speed_mult = 0.3
-local speed_damp = 0.02
+local speed_mult = 0.2
+local speed_damp = 0.01
 local base_spin_speed = 3
 
 local filters = {
