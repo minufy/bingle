@@ -30,7 +30,7 @@ function Spinner:new()
             other:die()
             self.spin_speed = self.spin_speed+speed_boost
             self.size_mult = 2
-            Game.score_text.update(1+self.spin_speed)
+            Game.score_text.update(self.spin_speed)
         end,
     }
 end
