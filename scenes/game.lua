@@ -76,6 +76,8 @@ function Game:draw()
     self:draw_bg()
     Camera:stop()
 
+    Shadow:start()
+
     for i, group_name in ipairs(draw_order) do
         Camera:start()
         Outline:start()
@@ -95,6 +97,8 @@ function Game:draw()
     love.graphics.setFont(FontBold)
     love.graphics.print(s, Res.w/2-FontBold:getWidth(s)*self.score_text.size/2+Camera.shake_x, 40-FontBold:getHeight()*self.score_text.size/2+Camera.shake_y, 0, self.score_text.size, self.score_text.size)
     Outline:stop()
+    
+    Shadow:stop()
     
     -- Camera:start()
     -- if Edit.editing then

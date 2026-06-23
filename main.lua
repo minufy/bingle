@@ -30,6 +30,7 @@ function love.load()
     FontBold = love.graphics.newFont("assets/fonts/Galmuri11-Bold.ttf", 12)
 
     Outline:init(1)
+    Shadow:init({x = 2, y = 2})
     Res:init()
     SM:load("game")
 end
